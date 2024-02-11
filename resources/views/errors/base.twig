@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ locale }}">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="robots" content="noindex,nofollow">
-    <title>{% block title %}{% endblock %} - {{ site_name }}</title>
+    <style src="/app/style.7eb5d06.css"></style>
+    <style src="/app/home-css.bef20ec.css"></style>
+    <title>{% block title %}{% endblock %} | {{ site_name }}</title>
     {{ include('assets.spectre', ignore_missing = true) }}
     {% for style in styles %}
       <link rel="stylesheet" href="{{ style }}">
@@ -13,6 +15,42 @@
   </head>
 
   <body class="bg-gray">
+  
+  
+        <div class="container">
+        <header class="header-section"><a href="index.html" class="site-logo"><img src="/logo.png" alt="logo"></a>
+        <ul class="main-menu">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="logs.html">日志</a></li>
+          <li><a href="https://doc.craftspace.top" target="_blank">文档</a></li>
+          <li><a href="feedback.html">捐赠&amp;反馈</a></li>
+          <li><a href="https://discord.gg/ExCTpYMMTr" target="_blank">Discord</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('skinlib') }}">{{ trans('general.skinlib') }}</a>
+          </li>
+              {% if auth_check() %}
+                {{ include('shared.user-menu') }}
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url('auth/login') }}">
+                    <i class="icon fas fa-sign-in-alt"></i>
+                    {{ trans('general.login') }}
+                  </a>
+                </li>
+              {% endif %}        
+        <div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt"></span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">
+          <li><a href="index.html" role="menuitem" tabindex="-1">首页</a></li>
+          <li><a href="logs.html" role="menuitem" tabindex="-1">日志</a></li>
+          <li><a href="https://doc.craftspace.top" target="_blank" role="menuitem" tabindex="-1">文档</a></li>
+          <li><a href="https://skin.craftspace.top" target="_blank" role="menuitem" tabindex="-1">皮肤站</a></li>
+          <li><a href="feedback.html" role="menuitem" tabindex="-1">捐赠&amp;反馈</a></li>
+          <li><a href="https://discord.gg/ExCTpYMMTr" target="_blank" role="menuitem" tabindex="-1">Discord</a></li>
+        </ul>
+        </div>
+        </header>
+        </div>
+  
+  
     {{ include('errors.languages') }}
     <div class="hero d-flex">
       <div class="hero-body text-center">

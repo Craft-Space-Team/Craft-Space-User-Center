@@ -21,6 +21,18 @@ abstract class BaseCipher
      */
     public function verify($password, $hash, $salt = '')
     {
+        $salt = $this->parseHash($hash)['salt'];
+
         return hash_equals($hash, $this->hash($password, $salt));
+    }
+    
+    protected function parseHash($hash)
+    {
+        $parts = explode('$', $hash);
+
+        return [
+            'hash' => $parts[3],
+            'salt' => $parts[2],
+        ];
     }
 }

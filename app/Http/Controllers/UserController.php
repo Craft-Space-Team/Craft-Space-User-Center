@@ -352,7 +352,7 @@ class UserController extends Controller
     {
         /** @var User */
         $user = auth()->user();
-        $user->is_dark_mode = !$user->is_dark_mode;
+        $user->is_dark_mode = true;
         $user->save();
 
         return response()->noContent();

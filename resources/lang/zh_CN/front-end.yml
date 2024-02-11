@@ -84,7 +84,7 @@ skinlib:
     upload-at: 上传日期
     download: 下载
     delete-texture: 删除材质
-    manage-notice: 材质设为隐私或被删除后将会从每一个收藏者的衣柜中移除。
+    manage-notice: 材质被删除后将会从每一个收藏者的衣柜中移除。
   report:
     title: 举报
     reason: 请填写举报原因
@@ -151,7 +151,7 @@ user:
     create: 创建应用
     confirmRemove: 确认要删除这个应用吗？此操作不可撤销。
 admin:
-  operationsTitle: 更多操作
+  operationsTitle: 删除材质
   permission: 权限
   deleteUser: 删除
   changeEmail: 修改邮箱

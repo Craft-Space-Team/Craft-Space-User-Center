@@ -22,7 +22,7 @@ class ViewServiceProvider extends ServiceProvider
                 'site_name' => option_localized('site_name'),
                 'navbar_color' => $color,
                 'color_mode' => in_array($color, $lightColors) ? 'light' : 'dark',
-                'dark_mode' => (bool) optional(auth()->user())->is_dark_mode,
+                'dark_mode' => true,
                 'locale' => str_replace('_', '-', app()->getLocale()),
             ]);
         });
@@ -71,7 +71,7 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer('shared.dark-mode', function ($view) {
             $view->with([
-                'dark_mode' => (bool) optional(auth()->user())->is_dark_mode,
+                'dark_mode' => true,
             ]);
         });
 

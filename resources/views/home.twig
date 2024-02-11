@@ -1,146 +1,157 @@
 <!DOCTYPE html>
 <html lang="{{ locale }}">
-  <head>
-    {{ include('shared.head') }}
-    <link rel="preload" as="image" href="{{ home_pic_url }}">
-    <title>Craft Space - 用户中心</title>
-    <style>
-      .hp-wrapper {
-        {% if fixed_bg %}
-          background-color: rgba(0, 0, 0, 0);
-        {% else %}
-          background-image: url('{{ home_pic_url }}');
-        {% endif %}
-      }
-    </style>
-    {{ include('assets.home-css', ignore_missing = true) }}
-  </head>
 
-  <body class="hold-transition layout-top-nav">
-    <div class="hp-wrapper">
-      {% if fixed_bg %}
-        <div id="fixed-bg" style="background-image: url('{{ home_pic_url }}')"></div>
-      {% endif %}
+<head>
+	{{ include('shared.head') }}
+	<link rel="preload" as="image" href="{{ home_pic_url }}">
+	<title>Craft Space - 用户中心</title>
+	<style>
+		.hp-wrapper {
+				{% if fixed_bg %}
 
-        <div class="container">
-        <header class="header-section"><a href="index.html" class="site-logo"><img src="/logo.png" alt="logo"></a>
-        <ul class="main-menu">
+			background-color: rgba(0, 0, 0, 0);
+
+				{% else %}
+
+			background-image: url('{{ home_pic_url }}');
+
+				{% endif %}
+		}
+	</style>
+	{{ include('assets.home-css', ignore_missing = true) }}
+</head>
+
+<body class="hold-transition layout-top-nav">
+	<div class="hp-wrapper">
+		{% if fixed_bg %}
+		<div id="fixed-bg" style="background-image: url('{{ home_pic_url }}')"></div>
+		{% endif %}
+
+		<div class="container">
+			<header class="header-section"><a href="index.html" class="site-logo"><img src="/logo.png" alt="logo"></a>
+				<ul class="main-menu">
+					<li><a href="index.html">首页</a></li>
+					<li><a href="logs.html">日志</a></li>
+					<li><a href="https://doc.craftspace.top" target="_blank">文档</a></li>
+					<li><a href="feedback.html">捐赠&amp;反馈</a></li>
+					<li><a href="https://discord.gg/ExCTpYMMTr" target="_blank">Discord</a></li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url('skinlib') }}">{{ trans('general.skinlib') }}</a>
+					</li>
+					{% if auth_check() %}
+					{{ include('shared.user-menu') }}
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ url('auth/login') }}">
+							<i class="icon fas fa-sign-in-alt"></i>
+							{{ trans('general.login') }}
+						</a>
+					</li>
+					{% endif %}
+					<div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0"
+							class="slicknav_btn slicknav_collapsed" style="outline: none;"><span
+								class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span
+									class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span
+									class="slicknav_icon-bar"></span></span></a>
+						<ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">
+							<li><a href="index.html" role="menuitem" tabindex="-1">首页</a></li>
+							<li><a href="logs.html" role="menuitem" tabindex="-1">日志</a></li>
+							<li><a href="https://doc.craftspace.top" target="_blank" role="menuitem"
+									tabindex="-1">文档</a></li>
+							<li><a href="https://skin.craftspace.top" target="_blank" role="menuitem"
+									tabindex="-1">皮肤站</a></li>
+							<li><a href="feedback.html" role="menuitem" tabindex="-1">捐赠&amp;反馈</a></li>
+							<li><a href="https://discord.gg/ExCTpYMMTr" target="_blank" role="menuitem"
+									tabindex="-1">Discord</a></li>
+						</ul>
+					</div>
+			</header>
+		</div>
 
 
-          <li><a href="index.html">首页</a></li>
-          <li><a href="logs.html">日志</a></li>
-          <li><a href="https://doc.craftspace.top" target="_blank">文档</a></li>
-          <li><a href="feedback.html">捐赠&amp;反馈</a></li>
-          <li><a href="https://discord.gg/ExCTpYMMTr" target="_blank">Discord</a></li>
+		<div class="container">
+			<div class="splash">
+				<h1 class="splash-head">用户中心</h1>
+				<p class="splash-subhead">
+					{{ site_description }}
+				</p>
+				<p>
+					{% if auth_check() %}
+					<a href="{{ url('user') }}" class="main-button">
+						{{ trans('general.user-center') }}
+					</a>
+					{% else %}
+					<a href="{{ url('auth/register') }}" class="main-button">
+						{{ trans('general.register') }}
+					</a>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+		{% if hide_intro %}
+		<div id="copyright" class="without-intro">
+			<div class="container">
+				{{ include('shared.copyright') }}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+	{% if not hide_intro %}
+	<div id="intro">
+		<div class="container">
+			<div class="text-center">
+				<h1>{{ trans('index.features.title') }}</h1>
+				<br>
+				<br>
+				<div class="container-lg">
+					<div class="row">
+						{% for item in ['first', 'second', 'third'] %}
+						<div class="col-lg">
+							<i class="fas {{ trans(" index.features.#{item}.icon") }} mb-3" aria-hidden="true"></i>
+							<h3>{{ trans("index.features.#{item}.name") }}</h3>
+							<p>{{ trans("index.features.#{item}.desc")|raw }}</p>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+	<div id="footer-wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 mb-2">
+					{{ trans('index.introduction', {sitename: site_name}) }}
+				</div>
+				<div class="col-lg-4"></div>
+				<div class="col-lg-2 d-flex justify-content-center align-items-center">
+					<a href="{{ url('auth/register') }}" class="main-button">
+						{{ trans('index.start') }}
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="copyright" class="with-intro">
+		<div class="container">
+			{{ include('shared.copyright') }}
+		</div>
+	</div>
+	{% endif %}
 
-
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url('skinlib') }}">{{ trans('general.skinlib') }}</a>
-          </li>
-
-
-              {% if auth_check() %}
-                {{ include('shared.user-menu') }}
-              {% else %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url('auth/login') }}">
-                    <i class="icon fas fa-sign-in-alt"></i>
-                    {{ trans('general.login') }}
-                  </a>
-                </li>
-              {% endif %}        
-
-        <div class="slicknav_menu"><a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_collapsed" style="outline: none;"><span class="slicknav_menutxt">MENU</span><span class="slicknav_icon"><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a><ul class="slicknav_nav slicknav_hidden" aria-hidden="true" role="menu" style="display: none;">
-          <li><a href="index.html" role="menuitem" tabindex="-1">首页</a></li>
-          <li><a href="logs.html" role="menuitem" tabindex="-1">日志</a></li>
-          <li><a href="https://doc.craftspace.top" target="_blank" role="menuitem" tabindex="-1">文档</a></li>
-          <li><a href="https://skin.craftspace.top" target="_blank" role="menuitem" tabindex="-1">皮肤站</a></li>
-          <li><a href="feedback.html" role="menuitem" tabindex="-1">捐赠&amp;反馈</a></li>
-          <li><a href="https://discord.gg/ExCTpYMMTr" target="_blank" role="menuitem" tabindex="-1">Discord</a></li>
-        </ul>
-        </div>
-        </header>
-
-        </div>
-      </nav>
-
-      <div class="container">
-        <div class="splash">
-          <h1 class="splash-head">用户中心</h1>
-          <p class="splash-subhead">
-            {{ site_description }}
-          </p>
-          <p>
-            {% if auth_check() %}
-              <a href="{{ url('user') }}" class="main-button">
-                {{ trans('general.user-center') }}
-              </a>
-            {% else %}
-              <a href="{{ url('auth/register') }}" class="main-button">
-                {{ trans('general.register') }}
-              </a>
-            {% endif %}
-            </p>
-        </div>
-      </div>
-
-      {% if hide_intro %}
-        <div id="copyright" class="without-intro">
-          <div class="container">
-            {{ include('shared.copyright') }}
-          </div>
-        </div>
-      {% endif %}
-    </div>
-
-    {% if not hide_intro %}
-      <div id="intro">
-        <div class="container">
-          <div class="text-center">
-            <h1>{{ trans('index.features.title') }}</h1>
-            <br>
-            <br>
-            <div class="container-lg">
-              <div class="row">
-                {% for item in ['first', 'second', 'third'] %}
-                  <div class="col-lg">
-                    <i class="fas {{ trans("index.features.#{item}.icon") }} mb-3" aria-hidden="true"></i>
-                    <h3>{{ trans("index.features.#{item}.name") }}</h3>
-                    <p>{{ trans("index.features.#{item}.desc")|raw }}</p>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-          <br>
-        </div>
-      </div>
-      <div id="footer-wrap">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 mb-2">
-              {{ trans('index.introduction', {sitename: site_name}) }}
-            </div>
-            <div class="col-lg-4"></div>
-            <div class="col-lg-2 d-flex justify-content-center align-items-center">
-              <a href="{{ url('auth/register') }}" class="main-button">
-                {{ trans('index.start') }}
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="copyright" class="with-intro">
-        <div class="container">
-          {{ include('shared.copyright') }}
-        </div>
-      </div>
-    {% endif %}
-
-    <script type="application/json" id="blessing-extra">
+	<script type="application/json" id="blessing-extra">
       {{ {transparent_navbar: transparent_navbar}|json_encode|raw }}
     </script>
-    {{ include('assets.home', ignore_missing = true) }}
-    {{ include('shared.foot') }}
-  </body>
+    <script src="app/jquery-3.2.1.min.js"></script>
+    <script src="app/bootstrap.min.js"></script>
+    <script src="app/jquery.slicknav.js"></script>
+    <script src="app/owl.carousel.min.js"></script>
+    <script src="app/circle-progress.min.js"></script>
+    <script src="app/jquery.magnific-popup.min.js"></script>
+    <script src="app/main.js"></script><script src="js/console.js"></script>
+	{{ include('assets.home', ignore_missing = true) }}
+	{{ include('shared.foot') }}
+</body>
+
 </html>
